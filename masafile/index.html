@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カード形式のウェブアプリ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card-container {
+            width: 80%;
+            max-width: 600px;
+        }
+        .card {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .card-title {
+            margin: 0;
+            color: #333;
+            font-size: 18px;
+        }
+        .card-detail {
+            display: none;
+            margin-top: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <!-- カードはここに追加されます -->
+    </div>
+
+    <script>
+        // サンプルデータ
+        const cardsData = [
+            { title: '1日前のデータ', detail: 'これは1日前の詳細です。' },
+            { title: '3日前のデータ', detail: 'これは3日前の詳細です。' },
+            // 他のデータも同様に追加...
+        ];
+
+        function createCard(data) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const title = document.createElement('h2');
+            title.className = 'card-title';
+            title.textContent = data.title;
+            card.appendChild(title);
+            
+            const detail = document.createElement('div');
+            detail.className = 'card-detail';
+            detail.textContent = data.detail;
+            card.appendChild(detail);
+            
+            card.addEventListener('click', () => {
+                detail.style.display = detail.style.display === 'none' ? 'block' : 'none';
+            });
+
+            return card;
+        }
+
+        const container = document.querySelector('.card-container');
+        cardsData.forEach(data => {
+            container.appendChild(createCard(data));
+        });
+
+        
+
+        function fetchData() {
+  fetch('https://script.google.com/macros/s/AKfycbzE1odpv_CABvQFBM2lCO_XmhrS9qPNUpCM-tm3gFu1HNeuRXp5y08ICmVxBZCbwMQB/exec')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(cardData => {
+        // カードを作成して表示する処理
+      });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+document.addEventListener('DOMContentLoaded', fetchData);
+
+    </script>
+</body>
+</html>
